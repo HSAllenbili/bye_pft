@@ -1,4 +1,4 @@
-import {simulateRunningPath,getDistance} from './fakelatlng.ts'
+import { simulateRunningPath } from './fakelatlng.ts'
 
 function sec2ms(sec: number) {
     sec = parseInt(sec.toFixed(0))
@@ -48,17 +48,11 @@ function secTotime(s: number) {
 
 
 export function fakeRecord(record: any, rule: any, selectarr: any) {
-    var fakelatlngresult = simulateRunningPath(rule[selectarr[0]]["plans"][selectarr[1]]["latlngs"], record["exerciseTimes"],rule[selectarr[0]]["plans"][selectarr[1]]["routeKilometre"]);
+    var maxTime = 60 * rule[selectarr[0]]["plans"][selectarr[1]]["maxTime"];
+    record["exerciseTimes"] = parseInt(((maxTime - 120) + 60 * Math.random()).toFixed(0));
+    var fakelatlngresult = simulateRunningPath(rule[selectarr[0]]["plans"][selectarr[1]]["latlngs"], record["exerciseTimes"], rule[selectarr[0]]["plans"][selectarr[1]]["routeKilometre"]*1000);
     console.log(fakelatlngresult)
-    var km = 0;
-    for (var i = 1; i < fakelatlngresult.length; i++) {
-        var lat1 = fakelatlngresult[i - 1]["lat"];
-        var lng1 = fakelatlngresult[i - 1]["lng"];
-        var lat2 = fakelatlngresult[i]["lat"];
-        var lng2 = fakelatlngresult[i]["lng"];
-        km += ((getDistance(lng1, lat1, lng2, lat2)) / 1000)
-    }
-    km = parseFloat(km.toFixed(2));
+    var km = fakelatlngresult.totaldistance;
     var calorie = parseInt((62 * km).toFixed(0));
     let time = new Date().getTime() + Math.round(100 * Math.random());
     var recordTime = sec2day(time);
@@ -74,7 +68,7 @@ export function fakeRecord(record: any, rule: any, selectarr: any) {
     record["startTime"] = startTime;
     record["endTime"] = endTime;
     record["routeKilometre"] = km;
-    record["strLatitudeLongitude"] = JSON.stringify(fakelatlngresult);
+    record["strLatitudeLongitude"] = JSON.stringify(fakelatlngresult.fakelatlng);
     record["routeRule"] = rule[selectarr[0]]["routeRule"];
     record["maxTime"] = rule[selectarr[0]]["plans"][selectarr[1]]["maxTime"];
     record["minTime"] = rule[selectarr[0]]["plans"][selectarr[1]]["minTime"];

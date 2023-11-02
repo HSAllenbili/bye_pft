@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "bye_pft",
-    "version": "0.0.0"
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -43,7 +43,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "bye_pft",
+        "title": "体育部小助手",
         "width": 400,
         "height": 800
       }

@@ -1,22 +1,19 @@
 <template>
-    <n-card>
-        <n-space vertical>
-            <div style="display: flex; ">
-                <n-select v-model:value="rulevalue" :loading="ruleloading" filterable :options="ruleoptions"
-                    @update:value="rulevalueupdate" placeholder="选择路线" />
-                <n-button style="margin-left: 5px;" :disabled="ruleloading" @click="getRule">刷新路线</n-button>
-            </div>
-            <n-input-number v-model:value="timevalue" :max="maxTime" :min="minTime" placeholder="运动时间">
-                <template #suffix>
-                    秒
-                </template>
-            </n-input-number>
-            <n-checkbox label="上传为有效记录" :checked="isUse" @update:checked="askUse" />
-        </n-space>
-        <template #action>
-            <n-button type="primary" @click="submit">开始上传</n-button>
-        </template>
-    </n-card>
+    <n-spin :show="genshow">
+        <n-card>
+            <n-space vertical>
+                <div style="display: flex; ">
+                    <n-select v-model:value="rulevalue" :loading="ruleloading" filterable :options="ruleoptions"
+                        placeholder="选择路线" />
+                    <n-button style="margin-left: 5px;" :disabled="ruleloading" @click="getRule">刷新路线</n-button>
+                </div>
+                <n-checkbox label="上传为有效记录" :checked="isUse" @update:checked="askUse" />
+            </n-space>
+            <template #action>
+                <n-button type="primary" @click="submit">开始上传</n-button>
+            </template>
+        </n-card>
+    </n-spin>
 </template>
 
 <script lang="ts" setup>
@@ -27,15 +24,13 @@ import global from './global.ts'
 import { fakeRecord } from './fakerecord.ts'
 
 const rulevalue = ref();
-const timevalue = ref();
 const isUse = ref();
 const dialog = useDialog();
 const message = useMessage();
 const ruleoptions = ref();
+const genshow = ref(false)
 const rules: { planId: any; ruleId: any; }[] = [];
 const record = { "routeName": "", "ruleId": "", "planId": "", "recordTime": "", "startTime": "", "startImage": "", "endTime": "", "exerciseTimes": 0, "routeKilometre": 0, "endImage": "", "strLatitudeLongitude": "", "routeRule": "", "maxTime": 0, "minTime": 0, "orouteKilometre": 0, "ruleEndTime": "", "ruleStartTime": "", "calorie": "", "speed": "", "dispTimeText": "", "localId": 0, "studentId": "", "exerciseStatus": 1 }
-const maxTime = ref(0);
-const minTime = ref(0);
 const ruleloading = ref();
 let rule: any;
 let selectarr: any;
@@ -56,17 +51,10 @@ const askUse = () => {
     } else isUse.value = false;
 }
 
-const rulevalueupdate = () => {
-    selectarr = rulevalue.value.split('-');
-    maxTime.value = 60 * rule[selectarr[0]]["plans"][selectarr[1]]["maxTime"];
-    minTime.value = 60 * rule[selectarr[0]]["plans"][selectarr[1]]["minTime"];
-    timevalue.value = parseInt(((maxTime.value - 120) + 60 * Math.random()).toFixed(0));
-}
 
 const getRule = async () => {
     ruleloading.value = true;
     rulevalue.value = null;
-    timevalue.value = null;
     ruleoptions.value = [];
     rule = [];
     rule = (await listRule()).data;
@@ -92,23 +80,28 @@ const getRule = async () => {
 
 const submit = async () => {
     if (rulevalue.value != null) {
-        if (timevalue.value != null) {
-            record["studentId"] = global.Info.data.id;
-            record["exerciseTimes"] = timevalue.value;
-            isUse.value == true ? record["exerciseStatus"] = 0 : record["exerciseStatus"] = 1;
-            var body = fakeRecord(record, rule, selectarr);
-            dialog.warning({
-                title: '警告',
-                content: '确定上传?' + body,
-                positiveText: '确定',
-                negativeText: '不确定',
-                onPositiveClick: async () => {
-                    (await saveRecord(body)).data ? message.success("上传成功(●′ω`●)") : message.error("ε=ε=┌(;￣◇￣)┘上传失败，原因：" + rule.msg);
-                }
-            })
-        }
-        else message.error("还没设置运动时间啊喂>ᯅ<");
+        selectarr = rulevalue.value.split('-');
+        record["studentId"] = global.Info.data.id;
+        isUse.value == true ? record["exerciseStatus"] = 0 : record["exerciseStatus"] = 1;
+        const body = fakeRecord(record, rule, selectarr);
+        dialog.warning({
+            title: '警告',
+            content: '确定上传?',
+            positiveText: '确定',
+            negativeText: '不确定',
+            onPositiveClick: () => {
+                upload(body);
+            }
+        })
     } else message.error("还没选择路线啊喂(⌯꒪꒫꒪)੭");
+}
+
+const upload = async (body: any) => {
+    genshow.value = true;
+    const res: any = (await saveRecord(body)).data;
+    !res.code ? message.success("上传成功╰(*°▽°*)╯") : message.error("＞︿＜上传失败，原因：" + res.msg);
+    genshow.value =false;
+    isUse.value = false;
 }
 
 onMounted(() => {
