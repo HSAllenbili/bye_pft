@@ -17,3 +17,9 @@ const osThemeRef = useOsTheme();
 const theme = computed(() => (osThemeRef.value === 'dark' ? darkTheme : null));
 const hasToken = ref(localStorage.getItem("token") != null)
 </script>
+
+<style>
+::-webkit-scrollbar {
+     width: 0;
+   }
+</style>

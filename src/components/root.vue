@@ -22,7 +22,6 @@ const getInfo = async () => {
   spinshow.value = true;
   toolshow.value = false;
   global.Info = (await getStudentInfo()).data;
-  console.log(global.Info);
   if (global.Info.code) {
     message.error("(꒪⌓꒪)获取学生信息失败，原因：" + global.Info.msg);
     spinshow.value = false;

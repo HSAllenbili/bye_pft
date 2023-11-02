@@ -36,7 +36,6 @@ let rule: any;
 let selectarr: any;
 
 const askUse = () => {
-    console.log(isUse.value)
     if (isUse.value != true) {
         isUse.value = false;
         dialog.warning({
@@ -61,13 +60,11 @@ const getRule = async () => {
     if (!rule.code) {
         rule = rule.data;
         if (rule.length > 0) {
-            console.log(rule);
             for (const i in rule) {
                 ruleoptions.value.push({ type: 'group', label: rule[i].routeRule, children: [] })
                 for (const j in rule[i].plans) {
                     (ruleoptions.value as any)[i].children.push({ label: rule[i].plans[j].routeName, value: `${i}-${j}` })
                     rules.push({ planId: rule[i].ruleId.planId, ruleId: rule[i].plans[j].ruleId });
-                    console.log(ruleoptions.value);
                 }
             }
             message.success("获取路线信息成功～(∠・ω< )⌒★");

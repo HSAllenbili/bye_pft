@@ -29,10 +29,20 @@ export async function getTotalRecord() {
 
 export async function listRule() {
     const url = "https://pft.ujs.edu.cn/api/miniapp/exercise/listRule";
-    return get(url,header())
+    return get(url, header())
 }
 
-export async function saveRecord(body:any) {
+export async function saveRecord(body: any) {
     const url = "https://pft.ujs.edu.cn/api/exercise/exerciseRecord/saveRecord";
-    return post(url,header(),body)
+    return post(url, header(), body)
+}
+
+export async function deleteRecord(id: string) {
+    const url = "https://pft.ujs.edu.cn/api/miniapp/exercise/deleteRecordId?deleteRecordId=" + id;
+    return get(url, header())
+}
+
+export async function rankingList() {
+    const url = "https://pft.ujs.edu.cn/api/miniapp/exercise/rankingList";
+    return get(url, header())
 }

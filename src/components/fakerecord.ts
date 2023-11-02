@@ -51,7 +51,6 @@ export function fakeRecord(record: any, rule: any, selectarr: any) {
     var maxTime = 60 * rule[selectarr[0]]["plans"][selectarr[1]]["maxTime"];
     record["exerciseTimes"] = parseInt(((maxTime - 120) + 60 * Math.random()).toFixed(0));
     var fakelatlngresult = simulateRunningPath(rule[selectarr[0]]["plans"][selectarr[1]]["latlngs"], record["exerciseTimes"], rule[selectarr[0]]["plans"][selectarr[1]]["routeKilometre"]*1000);
-    console.log(fakelatlngresult)
     var km = fakelatlngresult.totaldistance;
     var calorie = parseInt((62 * km).toFixed(0));
     let time = new Date().getTime() + Math.round(100 * Math.random());
