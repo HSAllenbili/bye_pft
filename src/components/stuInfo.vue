@@ -18,9 +18,11 @@
     </n-layout>
 </template>
 <script lang="ts" setup>
+import { useDialog } from 'naive-ui';
 import { ref } from 'vue'
 const id = ref();
 const name = ref();
+const dialog = useDialog();
 
 const emit = defineEmits(['reload']);
 
@@ -29,9 +31,19 @@ const reload = () => {
 }
 
 const refresh = () => {
-    localStorage.clear();
-    location.reload();
+    dialog.warning({
+        title: '警告',
+        content: '确定清除?',
+        positiveText: '确定',
+        negativeText: '不确定',
+        onPositiveClick: () => {
+            localStorage.clear();
+            location.reload();
+        }
+    })
+
 }
+
 
 defineExpose({
     id,
