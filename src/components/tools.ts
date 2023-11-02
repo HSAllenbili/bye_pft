@@ -46,3 +46,8 @@ export async function rankingList() {
     const url = "https://pft.ujs.edu.cn/api/miniapp/exercise/rankingList";
     return get(url, header())
 }
+
+export async function updater() {
+    const url = "https://api.github.com/repos/HSAllenbili/bye_pft/releases/latest";
+    return get(url, {'User-Agent':''})
+}

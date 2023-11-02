@@ -17,7 +17,7 @@
         </n-row>
         <n-button @click="getRecord" style="margin: 24px 0 0 0;">刷新</n-button>
         <n-card v-for="item in recordlist" style="margin: 24px 0 24px 0;">
-            记录id:{{ item.recordId }}
+            记录id：{{ item.recordId }}
             <n-tag type="success" v-if="!item.exerciseStatus">
                 有效
             </n-tag>

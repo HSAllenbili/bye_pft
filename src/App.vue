@@ -3,6 +3,7 @@
     <n-dialog-provider>
       <n-message-provider>
         <n-global-style />
+        <updater />
         <reqToken v-if="!hasToken" />
         <root v-if="hasToken" />
       </n-message-provider>
