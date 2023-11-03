@@ -13,7 +13,7 @@
                 <td>{{ item.rankNum }}</td>
                 <td>{{ item.studentName }}</td>
                 <td>{{ item.totalRouteKilometre }}km</td>
-                <td>{{ item.studentId.substring(0,1) == '2' ? "本部": "京江"}} <n-tag type="error" v-if="item.totalRouteKilometre > parseFloat(ranking[98].totalRouteKilometre) + 40">卷王/挂哥</n-tag></td>
+                <td>{{ item.studentId.substring(0,1) == '2' ? "本部": "京江"}} <n-tag type="error" v-if="item.totalRouteKilometre > parseFloat(ranking[10].totalRouteKilometre) + 30">卷王/挂哥</n-tag></td>
             </tr>
         </tbody>
     </n-table>

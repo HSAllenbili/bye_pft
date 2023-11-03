@@ -22,15 +22,13 @@ onMounted(async () => {
 
 const check = async () => {
     const res: any = (await updater());
-    if (res.code != -1) {
-        console.log(res.data.name)
-        console.log("App v" +await version)
-        if (res.data.name == "App v" + await version) {
+    if (res.data.code != -1) {
+        if (res.data.tag_name == "app-v" + await version) {
             type.value = "success";
             info.value = "您已处于最新版本";
         }else{
             type.value = "warning";
-            info.value = "有新版本可以更新";
+            info.value = "有新版本可以更新："+res.data.tag_name;
         }
     } else {
         type.value = "error";
