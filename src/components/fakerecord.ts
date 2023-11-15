@@ -3,7 +3,7 @@ import { simulateRunningPath } from './fakelatlng.ts'
 function sec2ms(sec: number) {
     sec = parseInt(sec.toFixed(0))
     var s = sec % 60;
-    var m = (sec / 60).toFixed(0);
+    var m = Math.floor(sec / 60);
     return m + "'" + s + "''"
 }
 
