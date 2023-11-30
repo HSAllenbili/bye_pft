@@ -5,7 +5,7 @@
                 <th>排名</th>
                 <th>姓名</th>
                 <th>运动里程</th>
-                <th>所属学校（测试）</th>
+                <th>校区</th>
             </tr>
         </thead>
         <tbody v-for="item in ranking">
@@ -13,7 +13,7 @@
                 <td>{{ item.rankNum }}</td>
                 <td>{{ item.studentName }}</td>
                 <td>{{ item.totalRouteKilometre }}km</td>
-                <td>{{ item.studentId.substring(0,1) == '2' ? "本部": "京江"}} <n-tag type="error" v-if="item.totalRouteKilometre > parseFloat(ranking[10].totalRouteKilometre) + 30">卷王/挂哥</n-tag></td>
+                <td>{{ item.studentId.substring(0, 1) == '2' ? "本部" : "京江" }}</td>
             </tr>
         </tbody>
     </n-table>
