@@ -30,6 +30,10 @@
             运动时长：{{ item.strExerciseTimes }}
             <br>
             运动路程：{{ item.routeKilometre }}km
+            <br>
+            规则名称：{{ item.routeRule }}
+            <br>
+            路线名称：{{ item.routeName }}
             <template #action>
                 <n-space>
                     <n-button @click="detail">查看详情</n-button>
@@ -57,23 +61,23 @@ const getRecord = async () => {
         validtimes.value = Record.data.totalEffectiveTimes;
         validkm.value = Record.data.totalRouteKilometre;
         totaltimes.value = Record.data.targetTimes;
-        message.success("获取我的记录成功ヾ(•ω•`)o");
+        message.success("获取我的记录成功");
         recordlist.value = Record.data.recordList
-    } else message.error("≡(▔﹏▔)≡获取我的记录失败，原因：" + Record.msg);
+    } else message.error("获取我的记录失败，原因：" + Record.msg);
     recordshow.value = false;
 }
 
 const detail = () => {
-    message.info("没做好呢");
+    message.info("没做好");
 }
 
 const deleterecord = async (recordId: string) => {
-    message.info("(*/ω＼*)正在删除"+recordId);
+    message.info("正在删除"+recordId);
     const res: any = (await deleteRecord(recordId)).data;
     if (!res.code) {
         recordlist.value = recordlist.value.filter((record: any) => record.recordId !== recordId);
-        message.success("删除记录成功(～￣▽￣)～");
-    } else message.error("(￣_￣|||)删除记录失败，原因：" + res.msg);
+        message.success("删除记录成功");
+    } else message.error("删除记录失败，原因：" + res.msg);
 }
 
 onMounted(() => {

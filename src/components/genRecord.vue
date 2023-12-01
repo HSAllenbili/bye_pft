@@ -7,6 +7,12 @@
                         placeholder="选择路线" />
                     <n-button style="margin-left: 5px;" :disabled="ruleloading" @click="getRule">刷新路线</n-button>
                 </div>
+                <n-popover trigger="hover">
+                    <template #trigger>
+                        <n-date-picker v-model:value="selecttime" type="datetime" />
+                    </template>
+                    <span>选择运动结束时间</span>
+                </n-popover>
                 <n-checkbox label="上传为有效记录" :checked="isUse" @update:checked="askUse" />
             </n-space>
             <template #action>
@@ -32,6 +38,7 @@ const genshow = ref(false)
 const rules: { planId: any; ruleId: any; }[] = [];
 const record = { "routeName": "", "ruleId": "", "planId": "", "recordTime": "", "startTime": "", "startImage": "", "endTime": "", "exerciseTimes": 0, "routeKilometre": 0, "endImage": "", "strLatitudeLongitude": "", "routeRule": "", "maxTime": 0, "minTime": 0, "orouteKilometre": 0, "ruleEndTime": "", "ruleStartTime": "", "calorie": "", "speed": "", "dispTimeText": "", "localId": 0, "studentId": "", "exerciseStatus": 1 }
 const ruleloading = ref();
+const selecttime = ref(Date.parse(new Date().toString()));
 let rule: any;
 let selectarr: any;
 
@@ -67,10 +74,10 @@ const getRule = async () => {
                     rules.push({ planId: rule[i].ruleId.planId, ruleId: rule[i].plans[j].ruleId });
                 }
             }
-            message.success("获取路线信息成功～(∠・ω< )⌒★");
-        } else message.warning("获得的路线信息为空。晚安，玛卡巴卡🌕")
+            message.success("获取路线信息成功");
+        } else message.warning("超出规定的锻炼时间，获得的路线信息为空")
     } else {
-        message.error("（╯#-皿-)╯~~╧═╧获取路线信息失败，原因：" + rule.msg);
+        message.error("获取路线信息失败，原因：" + rule.msg);
     }
     ruleloading.value = false;
 }
@@ -80,7 +87,7 @@ const submit = async () => {
         selectarr = rulevalue.value.split('-');
         record["studentId"] = global.Info.data.id;
         isUse.value == true ? record["exerciseStatus"] = 0 : record["exerciseStatus"] = 1;
-        const body = fakeRecord(record, rule, selectarr);
+        const body = fakeRecord(record, rule, selectarr, selecttime.value);
         dialog.warning({
             title: '警告',
             content: '确定上传?',
@@ -90,14 +97,14 @@ const submit = async () => {
                 upload(body);
             }
         })
-    } else message.error("还没选择路线啊喂(⌯꒪꒫꒪)੭");
+    } else message.error("还没选择路线");
 }
 
 const upload = async (body: any) => {
     genshow.value = true;
     const res: any = (await saveRecord(body)).data;
-    !res.code ? message.success("上传成功╰(*°▽°*)╯") : message.error("＞︿＜上传失败，原因：" + res.msg);
-    genshow.value =false;
+    !res.code ? message.success("上传成功") : message.error("上传失败，原因：" + res.msg);
+    genshow.value = false;
     isUse.value = false;
 }
 

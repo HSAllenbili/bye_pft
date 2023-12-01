@@ -47,13 +47,13 @@ function secTotime(s: number) {
 }
 
 
-export function fakeRecord(record: any, rule: any, selectarr: any) {
+export function fakeRecord(record: any, rule: any, selectarr: any,selecttime:any) {
     var maxTime = 60 * rule[selectarr[0]]["plans"][selectarr[1]]["maxTime"];
-    record["exerciseTimes"] = parseInt(((maxTime - 120) + 60 * Math.random()).toFixed(0));
+    record["exerciseTimes"] = parseInt(((maxTime - 180) + 180 * Math.random()).toFixed(0));
     var fakelatlngresult = simulateRunningPath(rule[selectarr[0]]["plans"][selectarr[1]]["latlngs"], record["exerciseTimes"], rule[selectarr[0]]["plans"][selectarr[1]]["routeKilometre"]*1000);
     var km = fakelatlngresult.totaldistance;
     var calorie = parseInt((62 * km).toFixed(0));
-    let time = new Date().getTime() + Math.round(100 * Math.random());
+    let time = new Date(selecttime).getTime() + Math.round(100 * Math.random());
     var recordTime = sec2day(time);
     var endTime = sec2hhmmss(time);
     var speed = sec2ms(record["exerciseTimes"] / km);

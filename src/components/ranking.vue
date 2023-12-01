@@ -30,8 +30,8 @@ const getRanking = async () => {
     const res: any = (await rankingList()).data;
     if (!res.code) {
         ranking.value = res.data.rankingListVOs;
-        message.success("获取排行榜成功(✿◡‿◡)");
-    } else message.error("(◎﹏◎)获取排行榜失败：" + res.msg);
+        message.success("获取排行榜成功");
+    } else message.error("获取排行榜失败，原因：" + res.msg);
 }
 
 onMounted(() => {
