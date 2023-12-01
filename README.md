@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <img src="https://www.freeimg.cn/i/2023/12/01/6569b9301fc48.png" width="200" height="200" alt="nonebot">
+  <img src="https://www.freeimg.cn/i/2023/12/01/6569b9301fc48.png" width="200" height="200">
 </p>
 
 <div align="center">
