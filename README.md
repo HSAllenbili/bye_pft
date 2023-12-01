@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <img src="https://www.freeimg.cn/i/2023/12/01/6569b9301fc48.png" width="200" height="200">
+  <img src="https://cdn.jsdelivr.net/gh/HSAllenbili/bye_pft/src-tauri/icons/icon.png" width="200" height="200">
 </p>
 
 <div align="center">
@@ -12,6 +12,8 @@
 _再见，体育部小助手_
 
 Tauri + Vite + Vue + naive-ui + Typescript开发的江苏大学乐跑小工具
+
+🌟如果喜欢本项目，Star本仓库喵，Star本仓库谢谢喵🌟
 <!-- prettier-ignore-end -->
 
 </div>
@@ -22,3 +24,7 @@ Tauri + Vite + Vue + naive-ui + Typescript开发的江苏大学乐跑小工具
 - [ ] 生成路线后预览
 - [ ] 自定义参数上传
 - [ ] 优化路径模拟算法
+## [请帮助我们完善路线信息](https://github.com/HSAllenbili/pft_rules)
+如果你有相关能力（指抓包），可以帮助我们完善备用路线信息
+## 二次开发
+除了江苏大学外，东南大学等高校也使用了智迪锐开发的体育管理系统，可以fork本仓库修改相关代码直接使用

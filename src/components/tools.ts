@@ -32,6 +32,11 @@ export async function listRule() {
     return get(url, header())
 }
 
+export async function listPftRule() {
+    const url = "https://byepft.netlify.app/rules.json";
+    return get(url, {})
+}
+
 export async function saveRecord(body: any) {
     const url = "https://pft.ujs.edu.cn/api/exercise/exerciseRecord/saveRecord";
     return post(url, header(), body)

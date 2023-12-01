@@ -21,7 +21,8 @@
         "all": true,
         "scope": [
           "https://pft.ujs.edu.cn/*",
-          "https://api.github.com/*"
+          "https://api.github.com/*",
+          "https://byepft.netlify.app/*"
         ]
       }
     },
