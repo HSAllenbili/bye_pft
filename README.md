@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/HSAllenbili/bye_pft/src-tauri/icons/icon.png" width="200" height="200">
+  <img src="https://raw.githubusercontent.com/HSAllenbili/bye_pft/main/src-tauri/icons/icon.png" width="200" height="200">
 </p>
 
 <div align="center">
