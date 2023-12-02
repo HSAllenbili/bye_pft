@@ -2,8 +2,7 @@
     <n-spin :show="genshow">
         <n-card>
             <n-space vertical>
-                <n-select v-model:value="rulevalue" :loading="ruleloading" filterable :options="ruleoptions"
-                    placeholder="选择路线" />
+                <n-select v-model:value="rulevalue" :loading="ruleloading" :options="ruleoptions" placeholder="选择路线" />
                 <div style="display: flex; ">
                     <n-button style="margin-right: 5x;flex: 1;" :disabled="ruleloading" @click="getRule">刷新路线</n-button>
                     <n-button style="margin-left: 5px;flex: 1;" :disabled="ruleloading"
@@ -70,9 +69,9 @@ const getRule = async () => {
         rule = rule.data;
         if (rule.length > 0) {
             for (const i in rule) {
-                ruleoptions.value.push({ type: 'group', label: rule[i].routeRule+"("+rule[i].ruleStartTime+"-"+rule[i].ruleEndTime+")", children: [] })
+                ruleoptions.value.push({ label: rule[i].routeRule + "(" + rule[i].ruleStartTime + "-" + rule[i].ruleEndTime + ")", disabled: true })
                 for (const j in rule[i].plans) {
-                    (ruleoptions.value as any)[i].children.push({ label: rule[i].plans[j].routeName, value: `${i}-${j}` })
+                    (ruleoptions.value as any).push({ label: rule[i].plans[j].routeName + "(" + rule[i].plans[j].routeKilometre + "km)", value: `${i}-${j}` });
                     rules.push({ planId: rule[i].ruleId.planId, ruleId: rule[i].plans[j].ruleId });
                 }
             }
@@ -94,9 +93,9 @@ const getPftRule = async () => {
         rule = rule.data;
         if (rule.length > 0) {
             for (const i in rule) {
-                ruleoptions.value.push({ type: 'group', label: rule[i].routeRule+"("+rule[i].ruleStartTime+"-"+rule[i].ruleEndTime+")", children: [] })
+                ruleoptions.value.push({ label: rule[i].routeRule + "(" + rule[i].ruleStartTime + "-" + rule[i].ruleEndTime + ")", disabled: true })
                 for (const j in rule[i].plans) {
-                    (ruleoptions.value as any)[i].children.push({ label: rule[i].plans[j].routeName, value: `${i}-${j}` })
+                    (ruleoptions.value as any).push({ label: rule[i].plans[j].routeName + "(" + rule[i].plans[j].routeKilometre + "km)", value: `${i}-${j}` });
                     rules.push({ planId: rule[i].ruleId.planId, ruleId: rule[i].plans[j].ruleId });
                 }
             }
