@@ -32,7 +32,7 @@ const getInfo = async () => {
     } else {
       spinshow.value = false;
       message.success("同步学生信息成功");
-      localStorage.setItem("info", asyncinfo);
+      localStorage.setItem("info", JSON.stringify(asyncinfo));
       global.Info = JSON.parse(localStorage.getItem("info") as string);
       stuinfo.value.id = global.Info.data.studentNo;
       stuinfo.value.name = global.Info.data.studentName;
