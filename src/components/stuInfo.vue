@@ -8,7 +8,7 @@
                 </ul>
                 <n-space>
                     <n-button type="primary" @click="reload">
-                        重新加载
+                        同步信息
                     </n-button><n-button type="error" @click="refresh">
                         清除token
                     </n-button>

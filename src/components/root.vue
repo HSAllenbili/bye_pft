@@ -2,10 +2,10 @@
   <n-spin :show="spinshow">
     <stuInfo ref="stuinfo" @reload="getInfo" />
     <template #description>
-      正在获取学生信息
+      正在同步学生信息
     </template>
   </n-spin>
-  <tools v-if="toolshow" />
+  <tools />
 </template>
 
 <script lang="ts" setup>
@@ -15,22 +15,28 @@ import { getStudentInfo } from './tools.ts'
 import global from './global.ts'
 const message = useMessage();
 const spinshow = ref(true);
-const toolshow = ref(false);
 const stuinfo = ref();
 
 const getInfo = async () => {
   spinshow.value = true;
-  toolshow.value = false;
-  global.Info = (await getStudentInfo()).data;
-  if (global.Info.code) {
-    message.error("(꒪⌓꒪)获取学生信息失败，原因：" + global.Info.msg);
-    spinshow.value = false;
-  } else {
-    spinshow.value = false;
-    message.success("获取学生信息成功ᕕ( ᐛ )ᕗ");
-    toolshow.value = true;
+  if (localStorage.getItem("info") != null) {
+    global.Info = JSON.parse(localStorage.getItem("info") as string);
     stuinfo.value.id = global.Info.data.studentNo;
     stuinfo.value.name = global.Info.data.studentName;
+  }
+  else {
+    const asyncinfo: any = (await getStudentInfo()).data;
+    if (asyncinfo.code) {
+      message.error("同步学生信息失败，原因：" + asyncinfo.msg);
+      spinshow.value = false;
+    } else {
+      spinshow.value = false;
+      message.success("同步学生信息成功");
+      localStorage.setItem("info", asyncinfo);
+      global.Info = JSON.parse(localStorage.getItem("info") as string);
+      stuinfo.value.id = global.Info.data.studentNo;
+      stuinfo.value.name = global.Info.data.studentName;
+    }
   }
 }
 

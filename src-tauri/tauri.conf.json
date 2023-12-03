@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "bye_pft",
+    "productName": "可莉代跑",
     "version": "0.1.5"
   },
   "tauri": {
@@ -45,7 +45,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "体育部小助手",
+        "title": "可莉代跑",
         "width": 400,
         "height": 800
       }
