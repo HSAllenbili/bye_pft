@@ -74,7 +74,7 @@ const askRapid = () => {
         rapid_upload.value = false;
         dialog.warning({
             title: '警告',
-            content: '快速上传模式将直接上传运动记录，相对于普通上传存在一定风险。是否继续？',
+            content: '快速上传模式将直接上传运动记录，相对于普通上传存在一定风险。',
             positiveText: '使用快速上传',
             negativeText: '取消',
             onPositiveClick: () => {
@@ -114,11 +114,11 @@ const submmit = async () => {
         selectarr = rulevalue.value.split('-');
         record["studentId"] = JSON.parse(localStorage.getItem("stuinfo") as string).data.id;
         const body = fakeRecord(record, rule, selectarr, now);
-        dialog.warning({
-            title: '警告',
-            content: '确定上传?',
-            positiveText: '确定',
-            negativeText: '不确定',
+        dialog.info({
+            title: '请仔细检查上传参数',
+            content: '本项目即使尽可能地模拟真实上传流程，也无法完全排除潜在风险。同时，自新版本起，记录有效性将由体育系统后台判断。请注意：1.未在规定时间上传等情形的记录将被判定成无效锻炼。2.未上传本人有效照片的记录将被复核。',
+            positiveText: '上传',
+            negativeText: '取消',
             onPositiveClick: () => {
                 upload(body, rapid_upload.value);
             }
