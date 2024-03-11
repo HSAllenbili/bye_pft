@@ -1,31 +1,22 @@
-import { http } from '@tauri-apps/api';
+import axios from 'axios'
 
-
-export async function get(url:string,header:any) {
+export async function get(url: string, header: any) {
     try {
-        const response = await http.fetch(url, {
-            headers: header,
-            method: 'GET',
-            timeout: 15
-        });
-        return response
+        const response = await axios.get(url, { headers: header })
+        return response.data
     }
     catch {
-        return {data:{'code': -1,'msg':"网络异常"}}
+        return { data: { 'code': -1, 'msg': "网络异常" } }
     }
 }
 
-export async function post(url:string,header:any,body:any) {
+export async function post(url: string, header: any, data: any) {
     try {
-        const response = await http.fetch(url, {
-            headers: header,
-            method: 'POST',
-            body:http.Body.json(body),
-            timeout: 15
-        });
-        return response
+        const response = await axios.post(url, data, { headers: header })
+        console.log(response.data)
+        return response.data
     }
     catch {
-        return {data:{'code': -1,'msg':"网络异常"}}
+        return { data: { 'code': -1, 'msg': "网络异常" } }
     }
 }

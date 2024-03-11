@@ -1,4 +1,4 @@
-import { simulateRunningPath } from './fakelatlng.ts'
+import { simulateRunningPath } from './fakelatlng'
 
 function sec2ms(sec: number) {
     sec = parseInt(sec.toFixed(0))
@@ -54,12 +54,12 @@ export function fakeRecord(record: any, rule: any, selectarr: any,selecttime:any
     var km = fakelatlngresult.totaldistance;
     var calorie = parseInt((62 * km).toFixed(0));
     let time = new Date(selecttime).getTime() + Math.round(100 * Math.random());
+    var startTime = sec2hhmmss(time);
+    var endTimeStamp = time + record["exerciseTimes"] * 1000;
+    var endTime = sec2hhmmss(endTimeStamp);
     var recordTime = sec2day(time);
-    var endTime = sec2hhmmss(time);
     var speed = sec2ms(record["exerciseTimes"] / km);
     var dispTimeText = secTotime(record["exerciseTimes"]);
-    var localId = time - record["exerciseTimes"] * 1000;
-    var startTime = sec2hhmmss(localId);
     record["routeName"] = rule[selectarr[0]]["plans"][selectarr[1]]["routeName"];
     record["ruleId"] = rule[selectarr[0]]["ruleId"];
     record["planId"] = rule[selectarr[0]]["plans"][selectarr[1]]["planId"];
@@ -77,6 +77,5 @@ export function fakeRecord(record: any, rule: any, selectarr: any,selecttime:any
     record["calorie"] = calorie;
     record["speed"] = speed;
     record["dispTimeText"] = dispTimeText;
-    record["localId"] = localId;
     return record;
 }

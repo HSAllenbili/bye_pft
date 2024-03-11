@@ -4,9 +4,7 @@
       <n-notification-provider>
         <n-message-provider>
           <n-global-style />
-          <updater />
-          <reqToken v-if="!hasToken" />
-          <root v-if="hasToken" />
+          <proxy />
         </n-message-provider>
       </n-notification-provider>
     </n-dialog-provider>
@@ -19,7 +17,7 @@ import { useOsTheme, darkTheme } from 'naive-ui'
 import { zhCN, dateZhCN } from 'naive-ui'
 const osThemeRef = useOsTheme();
 const theme = computed(() => (osThemeRef.value === 'dark' ? darkTheme : null));
-const hasToken = ref(localStorage.getItem("token") != null)
+
 </script>
 
 <style>

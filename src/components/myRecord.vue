@@ -2,13 +2,13 @@
     <n-spin :show="recordshow">
         <n-row>
             <n-col :span="12">
-                <n-statistic label="有效次数（每日凌晨更新）" :value="validtimes">
+                <n-statistic label="有效次数" :value="validtimes">
                     <template #suffix>/ {{ totaltimes }}
                     </template>
                 </n-statistic>
             </n-col>
             <n-col :span="12">
-                <n-statistic label="有效里程（每日凌晨更新）" :value="validkm">
+                <n-statistic label="有效里程" :value="validkm">
                     <template #suffix>
                         km
                     </template>
@@ -18,11 +18,14 @@
         <n-button @click="getRecord" style="margin: 24px 0 0 0;">刷新</n-button>
         <n-card v-for="item in recordlist" style="margin: 24px 0 24px 0;">
             记录id：{{ item.recordId }}
-            <n-tag type="success" v-if="!item.exerciseStatus">
+            <n-tag type="success" v-if="item.exerciseStatus == 0">
                 有效
             </n-tag>
-            <n-tag type="error" v-if="item.exerciseStatus">
+            <n-tag type="error" v-if="item.exerciseStatus == 1">
                 无效
+            </n-tag>
+            <n-tag type="warning" v-if="item.exerciseStatus == 3">
+                复核中
             </n-tag>
             <br>
             日期：{{ item.recordTime }}
@@ -34,19 +37,13 @@
             规则名称：{{ item.routeRule }}
             <br>
             路线名称：{{ item.routeName }}
-            <template #action>
-                <n-space>
-                    <n-button @click="detail">查看详情</n-button>
-                    <n-button v-if="item.exerciseStatus" type="error" @click="deleterecord(item.recordId)">删除记录</n-button>
-                </n-space>
-            </template>
         </n-card>
     </n-spin>
 </template>
 
 <script lang="ts" setup>
 import { useMessage } from 'naive-ui';
-import { getTotalRecord, deleteRecord } from './tools.ts';
+import { myRecord } from './apis';
 import { onMounted, ref } from 'vue'
 const validtimes = ref(0);
 const validkm = ref(0);
@@ -56,8 +53,8 @@ const message = useMessage();
 const recordlist = ref();
 const getRecord = async () => {
     recordshow.value = true;
-    const Record: any = (await getTotalRecord()).data;
-    if (!Record.code) {
+    const Record = (await myRecord());
+    if (Record.code == 0) {
         validtimes.value = Record.data.totalEffectiveTimes;
         validkm.value = Record.data.totalRouteKilometre;
         totaltimes.value = Record.data.targetTimes;
@@ -67,18 +64,6 @@ const getRecord = async () => {
     recordshow.value = false;
 }
 
-const detail = () => {
-    message.info("没做好");
-}
-
-const deleterecord = async (recordId: string) => {
-    message.info("正在删除"+recordId);
-    const res: any = (await deleteRecord(recordId)).data;
-    if (!res.code) {
-        recordlist.value = recordlist.value.filter((record: any) => record.recordId !== recordId);
-        message.success("删除记录成功");
-    } else message.error("删除记录失败，原因：" + res.msg);
-}
 
 onMounted(() => {
     getRecord();

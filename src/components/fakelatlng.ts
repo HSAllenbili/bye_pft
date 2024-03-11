@@ -1,4 +1,3 @@
-//由new bing生成
 interface LatLng {
     lat: string;
     lng: string;
