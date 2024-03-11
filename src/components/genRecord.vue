@@ -11,8 +11,9 @@
                     <n-button style="margin-right: 5x;flex: 1;" :disabled="ruleloading" @click="getRule">刷新路线</n-button>
                 </n-flex>
                 <n-space justify="space-around">
-                    <n-upload list-type="image-card" max="1" v-model:file-list="startimage">开始照片</n-upload><n-upload
-                        list-type="image-card" max="1" v-model:file-list="endimage">结束照片</n-upload>
+                    <n-upload accept="image/*" list-type="image-card" max="1"
+                        v-model:file-list="startimage">开始照片</n-upload><n-upload accept="image/*" list-type="image-card"
+                        max="1" v-model:file-list="endimage">结束照片</n-upload>
                 </n-space>
                 <n-checkbox v-model:checked="rapid_upload" @update:checked="askRapid">
                     使用快速上传
