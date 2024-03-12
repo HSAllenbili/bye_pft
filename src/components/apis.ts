@@ -1,7 +1,7 @@
 import { get, post } from "./http";
 const header = () => {
     return {
-        'ua': "Mozilla/5.0 (iPad; CPU OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.45(0x18002d2c) NetType/WIFI Language/zh_CN",
+        'ua': localStorage.getItem("ua"),
         'token': sessionStorage.getItem("token"),
         'tenant': 'NDEzMjAxMDI5OQ=='
     }
@@ -9,7 +9,7 @@ const header = () => {
 
 const header_1 = () => {
     return {
-        'ua': "Mozilla/5.0 (iPad; CPU OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.45(0x18002d2c) NetType/WIFI Language/zh_CN",
+        'ua': localStorage.getItem("ua"),
         'token': sessionStorage.getItem("token"),
         'tenant': 'NDEzMjAxMDI5OQ==',
         'Content-Type': 'multipart/form-data'

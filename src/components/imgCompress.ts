@@ -22,7 +22,7 @@ const canvastoFile = (canvas: HTMLCanvasElement, type: string, quality: number):
  * @param {Nubmber} quality 压缩质量参数
  * @returns 压缩后的新图片
  */
-export const compressionFile = async (file: any, type = 'image/jpeg', quality = 0.5) => {
+export const compressionFile = async (file: any, type = 'image/jpeg', quality = 0.1) => {
     const fileName = file.name
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -32,7 +32,7 @@ export const compressionFile = async (file: any, type = 'image/jpeg', quality = 
     canvas.height = img.height
     context.clearRect(0, 0, img.width, img.height)
     context.drawImage(img, 0, 0, img.width, img.height)
-    const blob = (await canvastoFile(canvas, type, quality)) as Blob // quality:0.5可根据实际情况计算
+    const blob = (await canvastoFile(canvas, type, quality)) as Blob
     const newFile = await new File([blob], fileName, {
         type: type
     })

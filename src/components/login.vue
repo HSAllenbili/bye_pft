@@ -5,6 +5,14 @@
                 <n-flex>
                     {{ info }}
                     <n-input v-model:value="token" type="text" placeholder="Bearer ..." />
+                    <n-collapse>
+                        <n-collapse-item title="设置UA（可选）">
+                            <n-flex>
+                                <n-input v-model:value="ua" type="text" />
+                                <n-button @click="changeUA">更改UA</n-button>
+                            </n-flex>
+                        </n-collapse-item>
+                    </n-collapse>
                     <n-button @click="check">登录</n-button>
                 </n-flex>
             </n-alert>
@@ -21,6 +29,7 @@ const title = ref("");
 const show = ref(false);
 const type = ref("");
 const info = ref("");
+const ua = ref("")
 
 const check = async () => {
     title.value = "登录中";
@@ -46,7 +55,15 @@ const check = async () => {
     show.value = false
 }
 
+const changeUA = () => {
+    localStorage.setItem("ua", ua.value);
+}
+
 onMounted(async () => {
+    if (localStorage.getItem("ua") == null) {
+        localStorage.setItem("ua", "Mozilla/5.0 (iPad; CPU OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.45(0x18002d2c) NetType/WIFI Language/zh_CN")
+    }
+    ua.value = localStorage.getItem("ua") as string;
     if (localStorage.getItem("token") == null || localStorage.getItem("stuinfo") == null) {
         title.value = "登录异常";
         type.value = "error"
