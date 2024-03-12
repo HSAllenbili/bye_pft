@@ -131,11 +131,9 @@ function sleep(ms: number): Promise<void> {
 }
 
 const upload = async (body: any, rapidMode: boolean) => {
-    let img1: any = await compressionFile((startimage.value[0] as any).file)
-    let img2: any = await compressionFile((endimage.value[0] as any).file)
-    console.log(body)
     genshow.value = true;
     spin_info.value = "请勿关闭标签页，正在上传开始照片";
+    var img1: any = await compressionFile((startimage.value[0] as any).file)
     const form1 = new FormData();
     form1.append('file', img1);
     let res1 = await startImg(form1);
@@ -166,13 +164,14 @@ const upload = async (body: any, rapidMode: boolean) => {
             "dispTimeText": 0,
             "studentId": body["studentId"]
         });
+        if (!rapidMode) { spin_info.value = "请勿关闭标签页，将于" + body["endTime"] + "结束运动"; await sleep(body["exerciseTimes"] * 1000) }
         if (res2.code == 0) {
             let exid = res2.data;
             spin_info.value = "请勿关闭标签页，正在上传结束照片";
+            let img2: any = await compressionFile((endimage.value[0] as any).file)
             const form2 = new FormData();
             form2.append('file', img2);
             let res3 = await endImg(form2);
-            if (!rapidMode) { spin_info.value = "请勿关闭标签页，将于" + body["endTime"] + "结束运动"; await sleep(body["exerciseTimes"] * 1000) }
             if (res3.code == 0) {
                 spin_info.value = "请勿关闭标签页，正在结束运动";
                 let imgurl2 = res3.data;
