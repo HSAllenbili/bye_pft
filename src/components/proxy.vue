@@ -20,6 +20,7 @@ const type = ref("info");
 const info = ref("");
 
 const check = async () => {
+    if(localStorage.getItem("proxy")==null) localStorage.setItem("proxy","http://127.0.0.1:11451");
     title.value = "代理检查中";
     type.value = "info";
     info.value = ""
