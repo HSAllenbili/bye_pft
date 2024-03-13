@@ -14,13 +14,12 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { getVersion } from './apis';
-const proxy_url = ref(localStorage.getItem("proxy"));
+const proxy_url = ref("");
 const title = ref("代理检查中");
 const type = ref("info");
 const info = ref("");
 
 const check = async () => {
-    if(localStorage.getItem("proxy")==null) localStorage.setItem("proxy","http://127.0.0.1:11451");
     title.value = "代理检查中";
     type.value = "info";
     info.value = ""
@@ -41,6 +40,8 @@ const set_proxy = async () => {
 }
 
 onMounted(async () => {
+    if (localStorage.getItem("proxy") == null) localStorage.setItem("proxy", "http://127.0.0.1:11451");
+    proxy_url.value = localStorage.getItem("proxy") as string;
     check();
 })
 
