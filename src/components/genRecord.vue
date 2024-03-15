@@ -31,6 +31,7 @@ import { useDialog, useMessage } from 'naive-ui'
 import { listRule, startImg, endImg, startRecord, endRecord } from './apis'
 import { fakeRecord } from './fakerecord';
 import { compressionFile } from './imgCompress';
+import axios from 'axios';
 
 const genshow = ref(false)
 const rapid_upload = ref(false)
@@ -202,6 +203,7 @@ const upload = async (body: any, rapidMode: boolean) => {
                 });
                 if (res4.code == 0) {
                     message.success("记录上传成功", { duration: 0, closable: true });
+                    axios.get("https://api.counterapi.dev/v1/byepft/upload/up");
                 } else message.error("运动结束失败，原因：" + res4.msg, { duration: 0, closable: true });
             } else message.error("结束图片上传失败，原因：" + res3.msg, { duration: 0, closable: true });
         } else message.error("运动开始失败，原因：" + res2.msg, { duration: 0, closable: true });

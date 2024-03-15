@@ -8,9 +8,25 @@
                 <myRecord />
             </n-tab-pane>
             <n-tab-pane name="关于" animated display-directive="show:lazy">
+                <n-statistic label="本项目累计上传" tabular-nums>
+                    <n-number-animation ref="numberAnimationInstRef" :from="0" :to="counter" />
+                    <template #suffix>
+                        条记录
+                    </template>
+                </n-statistic>
                 repo:<a href="https://github.com/HSAllenbili/bye_pft" style="color: inherit;"
                     target="_blank">https://github.com/HSAllenbili/bye_pft</a>
             </n-tab-pane>
         </n-tabs>
     </n-layout>
 </template>
+
+<script lang="ts" setup>
+import axios from 'axios';
+import { ref, onMounted } from 'vue'
+const counter = ref(0)
+
+onMounted(async () => {
+    counter.value = (await axios.get("https://api.counterapi.dev/v1/byepft/upload/")).data.count;
+})
+</script>
