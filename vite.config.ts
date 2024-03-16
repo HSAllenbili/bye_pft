@@ -27,7 +27,7 @@ export default defineConfig({
       resolvers: [NaiveUiResolver()]
     })
   ],
-  base: "/",
+  base: "/bye_pft",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
