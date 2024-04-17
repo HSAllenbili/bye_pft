@@ -4,7 +4,7 @@
       <n-notification-provider>
         <n-message-provider>
           <n-global-style />
-            <n-alert :type="warning" title="注意">
+            <n-alert type="warning" title="注意">
               江苏大学信息化中心将于4月17-24日限制外网访问体育系统，期间内需要通过校园网访问体育系统。为规避潜在的钓鱼风险，维护期间内请勿使用该工具。
             </n-alert>
           <proxy />
